@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft_Automatic_ModDownloader", "Minecraft_Automatic_ModDownloader.csproj", "{94614ABE-2C7A-4419-952E-08C79BFC03E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94614ABE-2C7A-4419-952E-08C79BFC03E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94614ABE-2C7A-4419-952E-08C79BFC03E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94614ABE-2C7A-4419-952E-08C79BFC03E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94614ABE-2C7A-4419-952E-08C79BFC03E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FAEC8FD-5E21-426E-B057-54A23D890AC4}
+	EndGlobalSection
+EndGlobal
