@@ -6,7 +6,6 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Principal;
 using System.Windows.Forms;
 
 namespace Minecraft_Automatic_ModDownloader
@@ -18,6 +17,8 @@ namespace Minecraft_Automatic_ModDownloader
 
         private string message = "";
         private DateTime msgTime;
+
+        private CheckBox topbarCheckbox;
 
         private string userName = Environment.UserName;
 
@@ -37,11 +38,6 @@ namespace Minecraft_Automatic_ModDownloader
             else
             {
                 modsLink = configfile.Read("ModsJson");
-            }
-
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\mods"))
-            {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\mods");
             }
 
             if (modsLink == "")
@@ -70,19 +66,6 @@ namespace Minecraft_Automatic_ModDownloader
                     message = "Invalid mods link found in config in " + configDir + "\nDoes not end with .json";
                     LogMsg();
                 }
-            }
-
-            if(!IsAdministrator())
-            {
-                DialogResult result;
-                result = MessageBox.Show(
-                    "Not running application as administrator can not download into minecraft folder installing into mods folder instead",
-                    "Not running application as administrator",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                message = "Invalid mods link found in config in " + configDir + "\nDoes not end with .json";
-                LogMsg();
             }
 
             if (!Directory.Exists(minecraftDir + @"\mods"))
@@ -129,26 +112,58 @@ namespace Minecraft_Automatic_ModDownloader
         private void downloadButton_Click(object sender, EventArgs e)
         {
             string downloadFolder = minecraftDir + @"\mods";
-            if(!IsAdministrator())
-            {
-                downloadFolder = Directory.GetCurrentDirectory() + @"\mods";
-            }
             if (CheckLink(modsLink))
             {
-                using (WebClient wc = new WebClient())
+                foreach (Mod mod in modList)
                 {
-                    foreach (var mod in modList)
+                    using (WebClient wc = new WebClient())
                     {
-                        Uri uri = new Uri(mod.Download);
-                        if (uri.IsFile)
+                        wc.DownloadProgressChanged += (s, ed) =>
                         {
+                            mod.Progress.Value = ed.ProgressPercentage;
+                        };
+                        if (downloadSelected.Checked)
+                        {
+                            if (mod.CheckBox.Checked)
+                            {
+
+                                Uri uri = new Uri(mod.Download);
+                                string filename = Path.GetFileName(uri.LocalPath);
+                                wc.DownloadFileAsync(uri, downloadFolder + @"\" + filename);
+                                message = "Downloaded: " + downloadFolder + @"\" + filename;
+                                LogMsg();
+                            }
+                        }
+                        else
+                        {
+                            Uri uri = new Uri(mod.Download);
                             string filename = Path.GetFileName(uri.LocalPath);
-                            wc.DownloadFile(mod.Download.ToString(), downloadFolder + @"\" + filename);
-                            message = downloadFolder + @"\" + filename;
+                            wc.DownloadFileAsync(uri, downloadFolder + @"\" + filename);
+                            message = "Downloaded: " + downloadFolder + @"\" + filename;
                             LogMsg();
                         }
-                        
                     }
+                }
+            }
+        }
+
+        private void SelectAll(object sender, System.EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            CheckState state = checkbox.CheckState;
+            bool isChecked = checkbox.Checked;
+            if (isChecked)
+            {
+                foreach (Mod mod in modList)
+                {
+                    mod.CheckBox.Checked = true;
+                }
+            }
+            else
+            {
+                foreach (Mod mod in modList)
+                {
+                    mod.CheckBox.Checked = false;
                 }
             }
         }
@@ -157,21 +172,78 @@ namespace Minecraft_Automatic_ModDownloader
         {
             using (WebClient wc = new WebClient())
             {
+                PrivateFontCollection pfc = new PrivateFontCollection();
+                pfc.AddFontFile(@"C:\Users\alleh\OneDrive\Dokument\!C#_Projects\Minecraft_Automatic_ModDownloader\Assets\Inter-Regular.ttf");
                 var webjson = wc.DownloadString(modLink.ToString());
                 dynamic json = JsonConvert.DeserializeObject(webjson);
                 modList.Clear();
-                List<string> list = new List<string>();
+                topbarCheckbox = new CheckBox();
+                topbarCheckbox.Name = "topbar checkBox";
+                topbarCheckbox.Checked = true;
+                topbarCheckbox.Width = 15;
+                topbarCheckbox.CheckedChanged += SelectAll;
+                Label newText1 = new Label();
+                newText1.Name = "topbar name";
+                newText1.Text = "Name";
+                newText1.AutoSize = true;
+                newText1.Width = flowLayoutPanel1.Width - newText1.Width - 200;
+                newText1.AutoSize = false;
+                newText1.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                newText1.ForeColor = Color.White;
+                Label newText2 = new Label();
+                newText2.Name = "topbar progress";
+                newText2.Text = "Progress";
+                newText2.AutoSize = true;
+                newText2.Width = 200;
+                newText2.AutoSize = false;
+                newText2.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                newText2.ForeColor = Color.White;
+                FlowLayoutPanel newGroupTop = new FlowLayoutPanel();
+                newGroupTop.Name = "topbar";
+                newGroupTop.AutoSize = true;
+                newGroupTop.BackColor = Color.Transparent;
+                newGroupTop.WrapContents = false;
+                newGroupTop.Controls.Add(topbarCheckbox);
+                newGroupTop.Controls.Add(newText1);
+                newGroupTop.Controls.Add(newText2);
+                flowLayoutPanel1.Controls.Add(newGroupTop);
                 foreach (var mod in json)
                 {
-                    message = "Name: " + mod.name + " | Download: " + mod.download;
-                    LogMsg();
+                    CheckBox newCheckBox = new CheckBox();
+                    newCheckBox.Name = "checkBox " + mod.name;
+                    newCheckBox.Checked = true;
+                    newCheckBox.Width = 15;
+                    Label newText = new Label();
+                    newText.Name = "label " + mod.name;
+                    newText.Text = mod.name;
+                    newText.AutoSize = true;
+                    newText.Width = flowLayoutPanel1.Width - newText.Width - 200;
+                    newText.AutoSize = false;
+                    newText.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                    newText.ForeColor = Color.White;
+                    ProgressBar newProgressBar = new ProgressBar();
+                    newProgressBar.Name = "progressBar " + mod.name;
+                    newProgressBar.Width = 200;
+                    newProgressBar.Height = 20;
+                    newProgressBar.Maximum = 100;
+                    newProgressBar.Step = 1;
+                    newProgressBar.Style = ProgressBarStyle.Continuous;
+                    FlowLayoutPanel newGroup = new FlowLayoutPanel();
+                    newGroup.Name = "group " + mod.name;
+                    newGroup.AutoSize = true;
+                    newGroup.BackColor = Color.Transparent;
+                    newGroup.WrapContents = false;
+                    newGroup.Controls.Add(newCheckBox);
+                    newGroup.Controls.Add(newText);
+                    newGroup.Controls.Add(newProgressBar);
+                    flowLayoutPanel1.Controls.Add(newGroup);
                     Mod newMod = new Mod();
                     newMod.Name = mod.name;
                     newMod.Download = mod.download;
+                    newMod.CheckBox = newCheckBox;
+                    newMod.Progress = newProgressBar;
                     modList.Add(newMod);
-                    list.Add(mod.name.ToString());
                 }
-                listBox1.DataSource = list;
             }
         }
 
@@ -179,19 +251,12 @@ namespace Minecraft_Automatic_ModDownloader
         {
             if (link != "")
             {
-                if (link.EndsWith(".json"))
+                if (link.EndsWith("json"))
                 {
                     return true;
                 }
             }
             return false;
-        }
-
-        public static bool IsAdministrator()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            var principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 
@@ -209,5 +274,18 @@ namespace Minecraft_Automatic_ModDownloader
             get { return download; }
             set { download = value; }
         }
+        private CheckBox checkBox;
+        public CheckBox CheckBox
+        {
+            get { return checkBox; }
+            set { checkBox = value; }
+        }
+        private ProgressBar progress;
+        public ProgressBar Progress
+        {
+            get { return progress; }
+            set { progress = value; }
+        }
+
     }
 }
