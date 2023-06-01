@@ -30,7 +30,7 @@ namespace Minecraft_Automatic_ModDownloader
             var configfile = new IniFile("config.ini");
             string configDir = Directory.GetCurrentDirectory() + @"\config.ini";
 
-            if (!File.Exists("config.ini"))
+            if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
             {
                 configfile.Write("ModsJson", modsLink);
             }
@@ -139,7 +139,15 @@ namespace Minecraft_Automatic_ModDownloader
                 {
                     foreach (var mod in modList)
                     {
-                        wc.DownloadFile(mod.Download.ToString(), downloadFolder);
+                        Uri uri = new Uri(mod.Download);
+                        if (uri.IsFile)
+                        {
+                            string filename = Path.GetFileName(uri.LocalPath);
+                            wc.DownloadFile(mod.Download.ToString(), downloadFolder + @"\" + filename);
+                            message = downloadFolder + @"\" + filename;
+                            LogMsg();
+                        }
+                        
                     }
                 }
             }
