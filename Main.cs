@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
@@ -14,43 +14,46 @@ namespace Minecraft_Automatic_ModDownloader
     {
         private string modsLink = "";
         private List<Mod> modList = new List<Mod>();
+        IniFile configfile = new IniFile("config.ini");
 
         private string message = "";
-        private DateTime msgTime;
+
+        private Settings settings;
+        public Settings Settings { get { return settings; } set { settings = value; } }
+        private AboutWindow aboutWindow;
+        public AboutWindow AboutWindow { get { return aboutWindow; } set { aboutWindow = value; } }
 
         private CheckBox topbarCheckbox;
 
         private string userName = Environment.UserName;
 
-        private string logDir = Directory.GetCurrentDirectory() + @"\log.txt";
         private string minecraftDir = "C:/Users/" + Environment.UserName + "/AppData/Roaming/.minecraft";
+        string configDir = Directory.GetCurrentDirectory() + @"\config.ini";
 
         public Main()
         {
             InitializeComponent();
-            var configfile = new IniFile("config.ini");
-            string configDir = Directory.GetCurrentDirectory() + @"\config.ini";
 
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
             {
-                configfile.Write("ModsJson", modsLink);
+                configfile.Write("JsonDownloadPath", modsLink);
             }
             else
             {
-                modsLink = configfile.Read("ModsJson");
+                modsLink = configfile.Read("JsonDownloadPath");
             }
 
             if (modsLink == "")
             {
                 DialogResult result;
                 result = MessageBox.Show(
-                    "No mods link found in config in\n" + configDir,
-                    "No mods link found in config",
+                    "No json path found in config at\n" + configDir,
+                    "No json path found in config",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
-                message = "No mods link found in config in" + configDir;
-                LogMsg();
+                message = "No json path found in config at" + configDir;
+                functions.LogMsg(message);
             }
             else
             {
@@ -58,13 +61,13 @@ namespace Minecraft_Automatic_ModDownloader
                 {
                     DialogResult result;
                     result = MessageBox.Show(
-                        "Invalid mods link found in config in\n" + configDir + "\nDoes not end with .json",
-                        "Invalid mods link found in config",
+                        "Invalid json path found in config at\n" + configDir + "\nDoes not end with .json",
+                        "Invalid json path found at config",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
-                    message = "Invalid mods link found in config in " + configDir + "\nDoes not end with .json";
-                    LogMsg();
+                    message = "Invalid json path found in config at " + configDir + "\nDoes not end with .json";
+                    functions.LogMsg(message);
                 }
             }
 
@@ -72,47 +75,39 @@ namespace Minecraft_Automatic_ModDownloader
             {
                 DialogResult result;
                 result = MessageBox.Show(
-                    "No mods folder found at " + minecraftDir + "\tDownload forge here: https://files.minecraftforge.net/net/minecraftforge/forge/",
+                    "No mods folder found at " + minecraftDir + "\nDownload forge here: https://files.minecraftforge.net/net/minecraftforge/forge/",
                     "No mods folder found",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
                 message = "No mods folder found at C:/Users/" + userName + "/AppData/Roaming/.minecraft\tDownload forge here: https://files.minecraftforge.net/net/minecraftforge/forge/";
-                LogMsg();
+                functions.LogMsg(message);
                 Application.Exit();
                 this.Close();
             }
             else
             {
-                if (CheckLink(modsLink))
+                if (functions.CheckLink(modsLink))
                 {
                     GetMods(modsLink);
                 }
             }
         }
 
-        private void LogMsg()
-        {
-            msgTime = DateTime.Now;
-            StreamWriter sw = new StreamWriter(logDir, true);
-            sw.WriteLine($"[{msgTime}] {message}");
-            sw.Close();
-        }
-
         private void Main_Load(object sender, EventArgs e)
         {
             PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile(@"C:\Users\alleh\OneDrive\Dokument\!C#_Projects\Minecraft_Automatic_ModDownloader\Assets\Inter-Regular.ttf");
+            pfc.AddFontFile("fonts/Inter-Regular.ttf");
             foreach (Control c in this.Controls)
             {
-                c.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
+                c.Font = new Font(pfc.Families[0], c.Font.Size, FontStyle.Regular);
             }
         }
 
         private void downloadButton_Click(object sender, EventArgs e)
         {
             string downloadFolder = minecraftDir + @"\mods";
-            if (CheckLink(modsLink))
+            if (functions.CheckLink(modsLink))
             {
                 foreach (Mod mod in modList)
                 {
@@ -131,7 +126,7 @@ namespace Minecraft_Automatic_ModDownloader
                                 string filename = Path.GetFileName(uri.LocalPath);
                                 wc.DownloadFileAsync(uri, downloadFolder + @"\" + filename);
                                 message = "Downloaded: " + downloadFolder + @"\" + filename;
-                                LogMsg();
+                                functions.LogMsg(message);
                             }
                         }
                         else
@@ -140,7 +135,7 @@ namespace Minecraft_Automatic_ModDownloader
                             string filename = Path.GetFileName(uri.LocalPath);
                             wc.DownloadFileAsync(uri, downloadFolder + @"\" + filename);
                             message = "Downloaded: " + downloadFolder + @"\" + filename;
-                            LogMsg();
+                            functions.LogMsg(message);
                         }
                     }
                 }
@@ -168,14 +163,50 @@ namespace Minecraft_Automatic_ModDownloader
             }
         }
 
-        private void GetMods(string modLink)
+        public void GetMods(string modLink)
         {
-            using (WebClient wc = new WebClient())
+            modsContainer.Controls.Clear();
+            modList.Clear();
+            Uri uriResult;
+            dynamic json = new JObject();
+            bool b = false;
+            bool isURL = Uri.TryCreate(modLink, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            if (isURL && functions.CheckLink(modLink))
+            {
+                if (functions.CheckLink(modLink))
+                {
+                    using (WebClient wc = new WebClient())
+                    {
+
+                        var webjson = wc.DownloadString(modLink.ToString());
+                        json = JsonConvert.DeserializeObject(webjson);
+                        b = true;
+
+                    }
+                }
+                else
+                {
+                    DialogResult result;
+                    result = MessageBox.Show(
+                        "Couldn't retrive json from " + modLink,
+                        "Couldn't retrive json from " + modLink,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    message = "Couldn't retrive json from " + modLink;
+                    functions.LogMsg(message);
+                }
+            }
+            else if (File.Exists(modLink) && functions.CheckLink(modLink))
+            {
+                json = JsonConvert.DeserializeObject(File.ReadAllText(modLink));
+                b = true;
+            }
+            if (b)
             {
                 PrivateFontCollection pfc = new PrivateFontCollection();
-                pfc.AddFontFile(@"C:\Users\alleh\OneDrive\Dokument\!C#_Projects\Minecraft_Automatic_ModDownloader\Assets\Inter-Regular.ttf");
-                var webjson = wc.DownloadString(modLink.ToString());
-                dynamic json = JsonConvert.DeserializeObject(webjson);
+                pfc.AddFontFile("fonts/Inter-Regular.ttf");
+
                 modList.Clear();
                 topbarCheckbox = new CheckBox();
                 topbarCheckbox.Name = "topbar checkBox";
@@ -186,9 +217,9 @@ namespace Minecraft_Automatic_ModDownloader
                 newText1.Name = "topbar name";
                 newText1.Text = "Name";
                 newText1.AutoSize = true;
-                newText1.Width = flowLayoutPanel1.Width - newText1.Width - 200;
+                newText1.Width = modsContainer.Width - newText1.Width - 200;
                 newText1.AutoSize = false;
-                newText1.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                newText1.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
                 newText1.ForeColor = Color.White;
                 Label newText2 = new Label();
                 newText2.Name = "topbar progress";
@@ -196,7 +227,7 @@ namespace Minecraft_Automatic_ModDownloader
                 newText2.AutoSize = true;
                 newText2.Width = 200;
                 newText2.AutoSize = false;
-                newText2.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                newText2.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
                 newText2.ForeColor = Color.White;
                 FlowLayoutPanel newGroupTop = new FlowLayoutPanel();
                 newGroupTop.Name = "topbar";
@@ -206,7 +237,7 @@ namespace Minecraft_Automatic_ModDownloader
                 newGroupTop.Controls.Add(topbarCheckbox);
                 newGroupTop.Controls.Add(newText1);
                 newGroupTop.Controls.Add(newText2);
-                flowLayoutPanel1.Controls.Add(newGroupTop);
+                modsContainer.Controls.Add(newGroupTop);
                 foreach (var mod in json)
                 {
                     CheckBox newCheckBox = new CheckBox();
@@ -217,9 +248,9 @@ namespace Minecraft_Automatic_ModDownloader
                     newText.Name = "label " + mod.name;
                     newText.Text = mod.name;
                     newText.AutoSize = true;
-                    newText.Width = flowLayoutPanel1.Width - newText.Width - 200;
+                    newText.Width = modsContainer.Width - newText.Width - 200;
                     newText.AutoSize = false;
-                    newText.Font = new Font(pfc.Families[0], 12, FontStyle.Regular);
+                    newText.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
                     newText.ForeColor = Color.White;
                     ProgressBar newProgressBar = new ProgressBar();
                     newProgressBar.Name = "progressBar " + mod.name;
@@ -236,7 +267,7 @@ namespace Minecraft_Automatic_ModDownloader
                     newGroup.Controls.Add(newCheckBox);
                     newGroup.Controls.Add(newText);
                     newGroup.Controls.Add(newProgressBar);
-                    flowLayoutPanel1.Controls.Add(newGroup);
+                    modsContainer.Controls.Add(newGroup);
                     Mod newMod = new Mod();
                     newMod.Name = mod.name;
                     newMod.Download = mod.download;
@@ -247,16 +278,24 @@ namespace Minecraft_Automatic_ModDownloader
             }
         }
 
-        private bool CheckLink(string link)
+        private void SettingsButton_Click(object sender, EventArgs e)
         {
-            if (link != "")
+            if (Settings == null)
             {
-                if (link.EndsWith("json"))
-                {
-                    return true;
-                }
+                Settings = new Settings();
             }
-            return false;
+            Settings.Show();
+            Settings.Focus();
+        }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            if (AboutWindow == null)
+            {
+                AboutWindow = new AboutWindow();
+            }
+            AboutWindow.Show();
+            AboutWindow.Focus();
         }
     }
 
