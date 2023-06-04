@@ -13,8 +13,9 @@ namespace Minecraft_Automatic_ModDownloader
     public partial class Main : Form
     {
         private string modsLink = "";
+        private bool deletemods = false;
+
         private List<Mod> modList = new List<Mod>();
-        IniFile configfile = new IniFile("config.ini");
 
         private string message = "";
 
@@ -34,15 +35,13 @@ namespace Minecraft_Automatic_ModDownloader
         {
             InitializeComponent();
 
-            if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
+            functions.CheckConfigFile();
+            modsLink = functions.configfile.Read("JsonDownloadPath");
+            deletemods = bool.TryParse(functions.configfile.Read("DeleteModsOnDownload"), out bool outbool);
+            if (!outbool)
             {
-                configfile.Write("JsonDownloadPath", modsLink);
+                deletemods = false;
             }
-            else
-            {
-                modsLink = configfile.Read("JsonDownloadPath");
-            }
-
             if (modsLink == "")
             {
                 DialogResult result;
@@ -107,8 +106,14 @@ namespace Minecraft_Automatic_ModDownloader
         private void downloadButton_Click(object sender, EventArgs e)
         {
             string downloadFolder = minecraftDir + @"\mods";
+            modsLink = functions.configfile.Read("JsonDownloadPath");
+            deletemods = bool.TryParse(functions.configfile.Read("DeleteModsOnDownload"), out bool outbool);
             if (functions.CheckLink(modsLink))
             {
+                if (deletemods)
+                {
+                    DeleteMods();
+                }
                 foreach (Mod mod in modList)
                 {
                     using (WebClient wc = new WebClient())
@@ -177,11 +182,8 @@ namespace Minecraft_Automatic_ModDownloader
                 {
                     using (WebClient wc = new WebClient())
                     {
-
                         var webjson = wc.DownloadString(modLink.ToString());
                         json = JsonConvert.DeserializeObject(webjson);
-                        b = true;
-
                     }
                 }
                 else
@@ -296,6 +298,19 @@ namespace Minecraft_Automatic_ModDownloader
             }
             AboutWindow.Show();
             AboutWindow.Focus();
+        }
+
+        private void DeleteMods()
+        {
+            DirectoryInfo modFolder = new DirectoryInfo(minecraftDir + @"\mods");
+            foreach (FileInfo file in modFolder.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in modFolder.GetDirectories())
+            {
+                dir.Delete(true);
+            }
         }
     }
 

@@ -11,26 +11,18 @@ namespace Minecraft_Automatic_ModDownloader
     public partial class Settings : Form
     {
         private string modsLink = "";
-        IniFile configfile = new IniFile("config.ini");
 
         private string message = "";
         private string userName = Environment.UserName;
 
         private string minecraftDir = "C:/Users/" + Environment.UserName + "/AppData/Roaming/.minecraft";
-        string configDir = Directory.GetCurrentDirectory() + @"\config.ini";
 
         public Settings()
         {
             InitializeComponent();
 
-            if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
-            {
-                configfile.Write("JsonDownloadPath", modsLink);
-            }
-            else
-            {
-                modsLink = configfile.Read("JsonDownloadPath");
-            }
+            functions.CheckConfigFile();
+            modsLink = functions.configfile.Read("JsonDownloadPath");
         }
 
         private void Settings_Load(object sender, EventArgs e)
@@ -59,23 +51,23 @@ namespace Minecraft_Automatic_ModDownloader
         {
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
             {
-                configfile.Write("JsonDownloadPath", modsLink);
+                functions.configfile.Write("JsonDownloadPath", modsLink);
             }
             else
             {
-                modsLink = configfile.Read("JsonDownloadPath");
+                modsLink = functions.configfile.Read("JsonDownloadPath");
             }
 
             if (modsLink == "")
             {
                 DialogResult result;
                 result = MessageBox.Show(
-                    "No json path found in config at\n" + configDir,
+                    "No json path found in config at\n" + functions.configDir,
                     "No json path found in config",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                 );
-                message = "No json path found in config at" + configDir;
+                message = "No json path found in config at" + functions.configDir;
                 functions.LogMsg(message);
             }
             else
@@ -84,12 +76,12 @@ namespace Minecraft_Automatic_ModDownloader
                 {
                     DialogResult result;
                     result = MessageBox.Show(
-                        "Invalid json path found in config at\n" + configDir + "\nDoes not end with .json",
+                        "Invalid json path found in config at\n" + functions.configDir + "\nDoes not end with .json",
                         "Invalid json path found at config",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
-                    message = "Invalid json path found in config at " + configDir + "\nDoes not end with .json";
+                    message = "Invalid json path found in config at " + functions.configDir + "\nDoes not end with .json";
                     functions.LogMsg(message);
                 }
             }

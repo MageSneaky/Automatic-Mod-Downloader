@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 
-class IniFile
+public class IniFile
 {
     string Path;
     string EXE = Assembly.GetExecutingAssembly().GetName().Name;

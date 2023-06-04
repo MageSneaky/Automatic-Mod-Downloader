@@ -13,7 +13,6 @@ namespace Minecraft_Automatic_ModDownloader
             InitializeComponent();
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = String.Format("Copyright {0}", AssemblyCopyright);
             this.labelCompanyName.Text = String.Format("Made By {0}", AssemblyCompany);
         }
 

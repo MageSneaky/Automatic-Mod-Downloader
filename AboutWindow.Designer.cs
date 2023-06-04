@@ -32,12 +32,11 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.labelCopyright = new System.Windows.Forms.Label();
+            this.Drag = new System.Windows.Forms.Panel();
+            this.aboutText = new System.Windows.Forms.Label();
+            this.closeAboutButton = new System.Windows.Forms.Button();
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
-            this.Drag = new System.Windows.Forms.Panel();
-            this.closeAboutButton = new System.Windows.Forms.Button();
-            this.aboutText = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.Drag.SuspendLayout();
@@ -54,7 +53,6 @@
             this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
-            this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.okButton, 1, 5);
             this.tableLayoutPanel.Location = new System.Drawing.Point(9, 39);
@@ -109,19 +107,50 @@
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelCopyright
+            // Drag
             // 
-            this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCopyright.ForeColor = System.Drawing.Color.White;
-            this.labelCopyright.Location = new System.Drawing.Point(143, 46);
-            this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 17);
-            this.labelCopyright.Name = "labelCopyright";
-            this.labelCopyright.Size = new System.Drawing.Size(271, 17);
-            this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "Copyright";
-            this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Drag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Drag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Drag.Controls.Add(this.aboutText);
+            this.Drag.Controls.Add(this.closeAboutButton);
+            this.Drag.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Drag.Location = new System.Drawing.Point(0, -1);
+            this.Drag.Name = "Drag";
+            this.Drag.Size = new System.Drawing.Size(436, 37);
+            this.Drag.TabIndex = 9;
+            this.Drag.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Drag_MouseDown);
+            // 
+            // aboutText
+            // 
+            this.aboutText.AutoSize = true;
+            this.aboutText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutText.ForeColor = System.Drawing.Color.White;
+            this.aboutText.Location = new System.Drawing.Point(8, 8);
+            this.aboutText.Name = "aboutText";
+            this.aboutText.Size = new System.Drawing.Size(60, 24);
+            this.aboutText.TabIndex = 10;
+            this.aboutText.Text = "About";
+            this.aboutText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Drag_MouseDown);
+            // 
+            // closeAboutButton
+            // 
+            this.closeAboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeAboutButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeAboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.closeAboutButton.FlatAppearance.BorderSize = 0;
+            this.closeAboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeAboutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeAboutButton.ForeColor = System.Drawing.Color.White;
+            this.closeAboutButton.Location = new System.Drawing.Point(404, 0);
+            this.closeAboutButton.Name = "closeAboutButton";
+            this.closeAboutButton.Size = new System.Drawing.Size(32, 32);
+            this.closeAboutButton.TabIndex = 9;
+            this.closeAboutButton.Text = "X";
+            this.closeAboutButton.UseVisualStyleBackColor = false;
+            this.closeAboutButton.Click += new System.EventHandler(this.closeSettingsButton_Click);
+            this.closeAboutButton.MouseEnter += new System.EventHandler(this.closeSettingsButton_MouseEnter);
+            this.closeAboutButton.MouseLeave += new System.EventHandler(this.closeSettingsButton_MouseLeave);
             // 
             // labelCompanyName
             // 
@@ -149,51 +178,6 @@
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // Drag
-            // 
-            this.Drag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Drag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Drag.Controls.Add(this.aboutText);
-            this.Drag.Controls.Add(this.closeAboutButton);
-            this.Drag.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Drag.Location = new System.Drawing.Point(0, -1);
-            this.Drag.Name = "Drag";
-            this.Drag.Size = new System.Drawing.Size(436, 37);
-            this.Drag.TabIndex = 9;
-            this.Drag.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Drag_MouseDown);
-            // 
-            // closeAboutButton
-            // 
-            this.closeAboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeAboutButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeAboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.closeAboutButton.FlatAppearance.BorderSize = 0;
-            this.closeAboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeAboutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeAboutButton.ForeColor = System.Drawing.Color.White;
-            this.closeAboutButton.Location = new System.Drawing.Point(404, 0);
-            this.closeAboutButton.Name = "closeAboutButton";
-            this.closeAboutButton.Size = new System.Drawing.Size(32, 32);
-            this.closeAboutButton.TabIndex = 9;
-            this.closeAboutButton.Text = "X";
-            this.closeAboutButton.UseVisualStyleBackColor = false;
-            this.closeAboutButton.Click += new System.EventHandler(this.closeSettingsButton_Click);
-            this.closeAboutButton.MouseEnter += new System.EventHandler(this.closeSettingsButton_MouseEnter);
-            this.closeAboutButton.MouseLeave += new System.EventHandler(this.closeSettingsButton_MouseLeave);
-            // 
-            // aboutText
-            // 
-            this.aboutText.AutoSize = true;
-            this.aboutText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutText.ForeColor = System.Drawing.Color.White;
-            this.aboutText.Location = new System.Drawing.Point(8, 8);
-            this.aboutText.Name = "aboutText";
-            this.aboutText.Size = new System.Drawing.Size(60, 24);
-            this.aboutText.TabIndex = 10;
-            this.aboutText.Text = "About";
-            this.aboutText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Drag_MouseDown);
-            // 
             // AboutWindow
             // 
             this.AcceptButton = this.okButton;
@@ -211,7 +195,7 @@
             this.Padding = new System.Windows.Forms.Padding(9);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About";
             this.TopMost = true;
             this.tableLayoutPanel.ResumeLayout(false);
@@ -228,11 +212,10 @@
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Label labelProductName;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label labelCopyright;
-        private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Panel Drag;
         private System.Windows.Forms.Button closeAboutButton;
         private System.Windows.Forms.Label aboutText;
+        private System.Windows.Forms.Label labelCompanyName;
+        private System.Windows.Forms.Button okButton;
     }
 }

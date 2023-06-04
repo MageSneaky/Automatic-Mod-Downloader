@@ -103,7 +103,6 @@ namespace Minecraft_Automatic_ModDownloader
         {
             base.OnPaint(pevent);
 
-
             Rectangle rectSurface = this.ClientRectangle;
             Rectangle rectBorder = Rectangle.Inflate(rectSurface, -borderSize, -borderSize);
             int smoothSize = 2;
