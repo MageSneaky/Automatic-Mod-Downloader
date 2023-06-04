@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -108,6 +107,10 @@ namespace Minecraft_Automatic_ModDownloader
             string downloadFolder = minecraftDir + @"\mods";
             modsLink = functions.configfile.Read("JsonDownloadPath");
             deletemods = bool.TryParse(functions.configfile.Read("DeleteModsOnDownload"), out bool outbool);
+            if (!outbool)
+            {
+                deletemods = false;
+            }
             if (functions.CheckLink(modsLink))
             {
                 if (deletemods)
@@ -154,6 +157,7 @@ namespace Minecraft_Automatic_ModDownloader
             bool isChecked = checkbox.Checked;
             if (isChecked)
             {
+                downloadAll.Checked = true;
                 foreach (Mod mod in modList)
                 {
                     mod.CheckBox.Checked = true;
@@ -161,6 +165,7 @@ namespace Minecraft_Automatic_ModDownloader
             }
             else
             {
+                downloadSelected.Checked = true;
                 foreach (Mod mod in modList)
                 {
                     mod.CheckBox.Checked = false;
@@ -170,20 +175,42 @@ namespace Minecraft_Automatic_ModDownloader
 
         public void GetMods(string modLink)
         {
+            modsLink = functions.configfile.Read("JsonDownloadPath");
+            deletemods = bool.TryParse(functions.configfile.Read("DeleteModsOnDownload"), out bool outbool);
+            if (!outbool)
+            {
+                deletemods = false;
+            }
             modsContainer.Controls.Clear();
             modList.Clear();
             Uri uriResult;
-            dynamic json = new JObject();
+            dynamic json = "";
             bool b = false;
             bool isURL = Uri.TryCreate(modLink, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-            if (isURL && functions.CheckLink(modLink))
+            if (isURL)
             {
                 if (functions.CheckLink(modLink))
                 {
                     using (WebClient wc = new WebClient())
                     {
-                        var webjson = wc.DownloadString(modLink.ToString());
-                        json = JsonConvert.DeserializeObject(webjson);
+                        try
+                        {
+                            var webjson = wc.DownloadString(modLink.ToString());
+                            json = JsonConvert.DeserializeObject(webjson);
+                            b = true;
+                        }
+                        catch (Exception)
+                        {
+                            DialogResult result;
+                            result = MessageBox.Show(
+                                "Couldn't retrive json from " + modLink,
+                                "Couldn't retrive json from " + modLink,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            message = "Couldn't retrive json from " + modLink;
+                            functions.LogMsg(message);
+                        }
                     }
                 }
                 else

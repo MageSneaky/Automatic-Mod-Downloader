@@ -20,9 +20,6 @@ namespace Minecraft_Automatic_ModDownloader
         public Settings()
         {
             InitializeComponent();
-
-            functions.CheckConfigFile();
-            modsLink = functions.configfile.Read("JsonDownloadPath");
         }
 
         private void Settings_Load(object sender, EventArgs e)
@@ -49,15 +46,8 @@ namespace Minecraft_Automatic_ModDownloader
 
         private void CloseForm()
         {
-            if (!File.Exists(Directory.GetCurrentDirectory() + @"\config.ini"))
-            {
-                functions.configfile.Write("JsonDownloadPath", modsLink);
-            }
-            else
-            {
-                modsLink = functions.configfile.Read("JsonDownloadPath");
-            }
-
+            functions.CheckConfigFile();
+            modsLink = functions.configfile.Read("JsonDownloadPath");
             if (modsLink == "")
             {
                 DialogResult result;

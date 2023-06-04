@@ -27,15 +27,37 @@ namespace Minecraft_Automatic_ModDownloader
             {
                 functions.configfile.Write("JsonDownloadPath", "");
                 functions.configfile.Write("DeleteModsOnDownload", false.ToString());
+                functions.configfile.Write("LogToFile", true.ToString());
+            }
+            if (!functions.configfile.KeyExists("JsonDownloadPath"))
+            {
+                functions.configfile.Write("JsonDownloadPath", "");
+            }
+            if (!functions.configfile.KeyExists("DeleteModsOnDownload"))
+            {
+                functions.configfile.Write("DeleteModsOnDownload", false.ToString());
+            }
+            if (!functions.configfile.KeyExists("LogToFile"))
+            {
+                functions.configfile.Write("LogToFile", true.ToString());
             }
         }
 
         public static void LogMsg(string message)
         {
-            DateTime msgTime = DateTime.Now;
-            StreamWriter sw = new StreamWriter(logDir, true);
-            sw.WriteLine($"[{msgTime}] {message}");
-            sw.Close();
+            CheckConfigFile();
+            bool logtofile = bool.TryParse(functions.configfile.Read("LogToFile"), out bool outlogbool);
+            if (!outlogbool)
+            {
+                logtofile = true;
+            }
+            if (logtofile)
+            {
+                DateTime msgTime = DateTime.Now;
+                StreamWriter sw = new StreamWriter(logDir, true);
+                sw.WriteLine($"[{msgTime}] {message}");
+                sw.Close();
+            }
         }
     }
 }

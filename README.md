@@ -20,7 +20,7 @@ Download available at [releases page](https://github.com/MageSneaky/Automatic-Mo
 1.  It lists mods based on the files in the specified `mods.json` file.
 2.  It downloads the mods from the `download` value in the mods.json file
 
-**Options available**: Delete mods on download
+**Options available**: Delete mods on download, Log to file
 
 ## Installation:
 1. Download `ModDownloader.zip`

@@ -32,11 +32,11 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.labelCompanyName = new System.Windows.Forms.Label();
+            this.okButton = new System.Windows.Forms.Button();
             this.Drag = new System.Windows.Forms.Panel();
             this.aboutText = new System.Windows.Forms.Label();
             this.closeAboutButton = new System.Windows.Forms.Button();
-            this.labelCompanyName = new System.Windows.Forms.Label();
-            this.okButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.Drag.SuspendLayout();
@@ -107,6 +107,32 @@
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // labelCompanyName
+            // 
+            this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCompanyName.ForeColor = System.Drawing.Color.White;
+            this.labelCompanyName.Location = new System.Drawing.Point(143, 69);
+            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelCompanyName.Name = "labelCompanyName";
+            this.labelCompanyName.Size = new System.Drawing.Size(271, 17);
+            this.labelCompanyName.TabIndex = 22;
+            this.labelCompanyName.Text = "Company Name";
+            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // okButton
+            // 
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.okButton.ForeColor = System.Drawing.Color.White;
+            this.okButton.Location = new System.Drawing.Point(339, 212);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 20);
+            this.okButton.TabIndex = 24;
+            this.okButton.Text = "&OK";
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
             // Drag
             // 
             this.Drag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -151,32 +177,6 @@
             this.closeAboutButton.Click += new System.EventHandler(this.closeSettingsButton_Click);
             this.closeAboutButton.MouseEnter += new System.EventHandler(this.closeSettingsButton_MouseEnter);
             this.closeAboutButton.MouseLeave += new System.EventHandler(this.closeSettingsButton_MouseLeave);
-            // 
-            // labelCompanyName
-            // 
-            this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCompanyName.ForeColor = System.Drawing.Color.White;
-            this.labelCompanyName.Location = new System.Drawing.Point(143, 69);
-            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
-            this.labelCompanyName.Name = "labelCompanyName";
-            this.labelCompanyName.Size = new System.Drawing.Size(271, 17);
-            this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "Company Name";
-            this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // okButton
-            // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.ForeColor = System.Drawing.Color.White;
-            this.okButton.Location = new System.Drawing.Point(339, 212);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 20);
-            this.okButton.TabIndex = 24;
-            this.okButton.Text = "&OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // AboutWindow
             // 

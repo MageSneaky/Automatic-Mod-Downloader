@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.jsonDownloadPathTextBox = new System.Windows.Forms.TextBox();
             this.deleteModsCheckBox = new System.Windows.Forms.CheckBox();
+            this.logToFileCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // generalLabel
@@ -87,11 +88,27 @@
             this.deleteModsCheckBox.UseVisualStyleBackColor = true;
             this.deleteModsCheckBox.CheckedChanged += new System.EventHandler(this.deleteModsCheckBox_CheckedChanged);
             // 
+            // logToFileCheckBox
+            // 
+            this.logToFileCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.logToFileCheckBox.Checked = true;
+            this.logToFileCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.logToFileCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logToFileCheckBox.ForeColor = System.Drawing.Color.White;
+            this.logToFileCheckBox.Location = new System.Drawing.Point(3, 109);
+            this.logToFileCheckBox.Name = "logToFileCheckBox";
+            this.logToFileCheckBox.Size = new System.Drawing.Size(487, 24);
+            this.logToFileCheckBox.TabIndex = 13;
+            this.logToFileCheckBox.Text = "Log To File";
+            this.logToFileCheckBox.UseVisualStyleBackColor = true;
+            this.logToFileCheckBox.CheckedChanged += new System.EventHandler(this.logToFileCheckBox_CheckedChanged);
+            // 
             // Tab_General
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Controls.Add(this.logToFileCheckBox);
             this.Controls.Add(this.deleteModsCheckBox);
             this.Controls.Add(this.jsonDownloadPathTextBox);
             this.Controls.Add(this.label2);
@@ -109,5 +126,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox jsonDownloadPathTextBox;
         private System.Windows.Forms.CheckBox deleteModsCheckBox;
+        private System.Windows.Forms.CheckBox logToFileCheckBox;
     }
 }
