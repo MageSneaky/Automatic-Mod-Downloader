@@ -8,13 +8,13 @@ namespace Minecraft_Automatic_ModDownloader
 {
     public class CustomButton : Button
     {
-        //Fields
+        #region Variables
         private int borderSize = 0;
         private int borderRadius = 0;
         private Color borderColor = Color.PaleVioletRed;
-        private Cursor hoverCursor;
+        #endregion
 
-        //Properties
+        #region Properties
         [Category("Button Customization")]
         public int BorderSize
         {
@@ -61,18 +61,9 @@ namespace Minecraft_Automatic_ModDownloader
             get { return this.ForeColor; }
             set { this.ForeColor = value; }
         }
+        #endregion
 
-        [Category("Button Customization")]
-        public Cursor HoverCursor
-        {
-            get { return hoverCursor; }
-            set
-            {
-                hoverCursor = value;
-            }
-        }
-
-        //Constructor
+        #region Constructor
         public CustomButton()
         {
             this.FlatStyle = FlatStyle.Flat;
@@ -81,10 +72,10 @@ namespace Minecraft_Automatic_ModDownloader
             this.BackColor = Color.MediumSlateBlue;
             this.ForeColor = Color.White;
             this.Resize += new EventHandler(Button_Resize);
-            this.MouseHover += new EventHandler(Hover);
         }
+        #endregion
 
-        //Methods
+        #region Methods
         private GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
@@ -149,10 +140,6 @@ namespace Minecraft_Automatic_ModDownloader
             base.OnHandleCreated(e);
             this.Parent.BackColorChanged += new EventHandler(Container_BackColorChanged);
         }
-        private void Hover(object sender, EventArgs e)
-        {
-            this.Cursor = HoverCursor;
-        }
         private void Container_BackColorChanged(object sender, EventArgs e)
         {
             this.Invalidate();
@@ -162,5 +149,6 @@ namespace Minecraft_Automatic_ModDownloader
             if (borderRadius > this.Height)
                 borderRadius = this.Height;
         }
+        #endregion
     }
 }

@@ -5,10 +5,13 @@ namespace Minecraft_Automatic_ModDownloader
 {
     public class functions
     {
+        #region Variables
         public static string configDir = Directory.GetCurrentDirectory() + @"\config.ini";
         public static IniFile configfile = new IniFile("config.ini");
         private static string logDir = Directory.GetCurrentDirectory() + @"\log.txt";
+        #endregion
 
+        #region Methods
         public static bool CheckLink(string link)
         {
             if (link != "")
@@ -59,5 +62,6 @@ namespace Minecraft_Automatic_ModDownloader
                 sw.Close();
             }
         }
+        #endregion
     }
 }

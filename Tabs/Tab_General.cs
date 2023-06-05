@@ -5,10 +5,13 @@ namespace Minecraft_Automatic_ModDownloader.Tabs
 {
     public partial class Tab_General : UserControl
     {
+        #region Variables
         private string modsLink = "";
         private bool deletemods = false;
         private bool logtofile = true;
+        #endregion
 
+        #region Constructor
         public Tab_General()
         {
             InitializeComponent();
@@ -24,7 +27,9 @@ namespace Minecraft_Automatic_ModDownloader.Tabs
             functions.configfile.Write("DeleteModsOnDownload", deleteModsCheckBox.Checked.ToString());
             functions.configfile.Write("LogToFile", logToFileCheckBox.Checked.ToString());
         }
+        #endregion
 
+        #region Control Events
         private void jsonDownloadPathTextBox_TextChanged(object sender, EventArgs e)
         {
             functions.configfile.Write("JsonDownloadPath", jsonDownloadPathTextBox.Text);
@@ -44,5 +49,6 @@ namespace Minecraft_Automatic_ModDownloader.Tabs
         {
             functions.configfile.Write("LogToFile", logToFileCheckBox.Checked.ToString());
         }
+        #endregion
     }
 }

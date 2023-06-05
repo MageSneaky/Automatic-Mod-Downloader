@@ -40,6 +40,7 @@
             this.closeSettingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeSettingsButton.BackColor = System.Drawing.Color.Transparent;
             this.closeSettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.closeSettingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.closeSettingsButton.FlatAppearance.BorderSize = 0;
             this.closeSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeSettingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -79,16 +80,16 @@
             // 
             // generalButton
             // 
-            this.generalButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(52)))));
-            this.generalButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(52)))));
+            this.generalButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.generalButton.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.generalButton.BorderColor = System.Drawing.Color.Transparent;
             this.generalButton.BorderRadius = 0;
             this.generalButton.BorderSize = 0;
+            this.generalButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.generalButton.FlatAppearance.BorderSize = 0;
             this.generalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.generalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generalButton.ForeColor = System.Drawing.Color.White;
-            this.generalButton.HoverCursor = System.Windows.Forms.Cursors.Hand;
             this.generalButton.Location = new System.Drawing.Point(0, 36);
             this.generalButton.Name = "generalButton";
             this.generalButton.Size = new System.Drawing.Size(119, 45);

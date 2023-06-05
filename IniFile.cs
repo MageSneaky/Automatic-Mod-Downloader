@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
-
 public class IniFile
 {
+    #region Variables
     string Path;
     string EXE = Assembly.GetExecutingAssembly().GetName().Name;
 
@@ -14,12 +14,16 @@ public class IniFile
 
     [DllImport("kernel32", CharSet = CharSet.Unicode)]
     static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
+    #endregion
 
+    #region Constructor
     public IniFile(string IniPath = null)
     {
         Path = new FileInfo(IniPath ?? EXE + ".ini").FullName;
     }
+    #endregion
 
+    #region Methods
     public string Read(string Key, string Section = null)
     {
         var RetVal = new StringBuilder(255);
@@ -46,4 +50,5 @@ public class IniFile
     {
         return Read(Key, Section).Length > 0;
     }
+    #endregion
 }

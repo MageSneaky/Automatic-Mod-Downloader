@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -8,13 +9,21 @@ namespace Minecraft_Automatic_ModDownloader
 {
     public partial class AboutWindow : Form
     {
+        #region Constructor
         public AboutWindow()
         {
             InitializeComponent();
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 400;
+
+            toolTip.SetToolTip(this.logoPictureBox, "Open https://github.com/MageSneaky/Automatic-Mod-Downloader in browser");
+
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCompanyName.Text = String.Format("Made By {0}", AssemblyCompany);
         }
+        #endregion
 
         #region Assembly Attribute Accessors
 
@@ -96,6 +105,7 @@ namespace Minecraft_Automatic_ModDownloader
         }
         #endregion
 
+        #region Control Events
         private void closeSettingsButton_Click(object sender, EventArgs e)
         {
             var main = Application.OpenForms.OfType<Main>().First();
@@ -136,5 +146,11 @@ namespace Minecraft_Automatic_ModDownloader
             main.AboutWindow = null;
             this.Close();
         }
+
+        private void logoPictureBox_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/MageSneaky/Automatic-Mod-Downloader");
+        }
+        #endregion
     }
 }

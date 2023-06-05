@@ -10,18 +10,33 @@ namespace Minecraft_Automatic_ModDownloader
 {
     public partial class Settings : Form
     {
+        #region Variables
         private string modsLink = "";
 
         private string message = "";
         private string userName = Environment.UserName;
 
         private string minecraftDir = "C:/Users/" + Environment.UserName + "/AppData/Roaming/.minecraft";
+        #endregion
 
+        #region Constructor
         public Settings()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Methods
+        private void AddTab(UserControl userControl)
+        {
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(userControl);
+            userControl.BringToFront();
+        }
+        #endregion
+
+        #region Control Events
         private void Settings_Load(object sender, EventArgs e)
         {
             Tab_General generalTab = new Tab_General();
@@ -122,18 +137,11 @@ namespace Minecraft_Automatic_ModDownloader
         {
             closeSettingsButton.BackColor = Color.Transparent;
         }
-
-        private void AddTab(UserControl userControl)
-        {
-            userControl.Dock = DockStyle.Fill;
-            panelContainer.Controls.Clear();
-            panelContainer.Controls.Add(userControl);
-            userControl.BringToFront();
-        }
         private void generalButton_Click(object sender, EventArgs e)
         {
             Tab_General generalTab = new Tab_General();
             AddTab(generalTab);
         }
+        #endregion
     }
 }

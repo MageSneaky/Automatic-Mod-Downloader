@@ -34,6 +34,8 @@
             this.downloadAll = new System.Windows.Forms.RadioButton();
             this.modsContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.aboutButton = new System.Windows.Forms.Button();
+            this.fabricButton = new System.Windows.Forms.Button();
+            this.forgeButton = new System.Windows.Forms.Button();
             this.downloadButton = new Minecraft_Automatic_ModDownloader.CustomButton();
             this.SuspendLayout();
             // 
@@ -42,10 +44,11 @@
             this.SettingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("SettingsButton.BackgroundImage")));
             this.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SettingsButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SettingsButton.FlatAppearance.BorderSize = 0;
             this.SettingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SettingsButton.Location = new System.Drawing.Point(756, 411);
+            this.SettingsButton.Location = new System.Drawing.Point(756, 422);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Size = new System.Drawing.Size(32, 32);
             this.SettingsButton.TabIndex = 1;
@@ -55,6 +58,7 @@
             // downloadSelected
             // 
             this.downloadSelected.AutoSize = true;
+            this.downloadSelected.Cursor = System.Windows.Forms.Cursors.Hand;
             this.downloadSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadSelected.ForeColor = System.Drawing.Color.White;
             this.downloadSelected.Location = new System.Drawing.Point(130, 12);
@@ -68,6 +72,7 @@
             // 
             this.downloadAll.AutoSize = true;
             this.downloadAll.Checked = true;
+            this.downloadAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.downloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadAll.ForeColor = System.Drawing.Color.White;
             this.downloadAll.Location = new System.Drawing.Point(12, 12);
@@ -90,7 +95,7 @@
             this.modsContainer.Location = new System.Drawing.Point(12, 39);
             this.modsContainer.Name = "modsContainer";
             this.modsContainer.Padding = new System.Windows.Forms.Padding(10);
-            this.modsContainer.Size = new System.Drawing.Size(776, 366);
+            this.modsContainer.Size = new System.Drawing.Size(776, 377);
             this.modsContainer.TabIndex = 0;
             this.modsContainer.WrapContents = false;
             // 
@@ -99,15 +104,48 @@
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.aboutButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("aboutButton.BackgroundImage")));
             this.aboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.aboutButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.aboutButton.FlatAppearance.BorderSize = 0;
             this.aboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Location = new System.Drawing.Point(718, 411);
+            this.aboutButton.Location = new System.Drawing.Point(718, 422);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(32, 32);
             this.aboutButton.TabIndex = 4;
             this.aboutButton.UseVisualStyleBackColor = true;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
+            // 
+            // fabricButton
+            // 
+            this.fabricButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.fabricButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("fabricButton.BackgroundImage")));
+            this.fabricButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.fabricButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.fabricButton.FlatAppearance.BorderSize = 0;
+            this.fabricButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.fabricButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fabricButton.Location = new System.Drawing.Point(680, 422);
+            this.fabricButton.Name = "fabricButton";
+            this.fabricButton.Size = new System.Drawing.Size(32, 32);
+            this.fabricButton.TabIndex = 5;
+            this.fabricButton.UseVisualStyleBackColor = true;
+            this.fabricButton.Click += new System.EventHandler(this.fabricButton_Click);
+            // 
+            // forgeButton
+            // 
+            this.forgeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.forgeButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("forgeButton.BackgroundImage")));
+            this.forgeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.forgeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.forgeButton.FlatAppearance.BorderSize = 0;
+            this.forgeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.forgeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.forgeButton.Location = new System.Drawing.Point(642, 422);
+            this.forgeButton.Name = "forgeButton";
+            this.forgeButton.Size = new System.Drawing.Size(32, 32);
+            this.forgeButton.TabIndex = 6;
+            this.forgeButton.UseVisualStyleBackColor = true;
+            this.forgeButton.Click += new System.EventHandler(this.forgeButton_Click);
             // 
             // downloadButton
             // 
@@ -117,12 +155,12 @@
             this.downloadButton.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.downloadButton.BorderRadius = 5;
             this.downloadButton.BorderSize = 0;
+            this.downloadButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.downloadButton.FlatAppearance.BorderSize = 0;
             this.downloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadButton.ForeColor = System.Drawing.Color.White;
-            this.downloadButton.HoverCursor = System.Windows.Forms.Cursors.Hand;
-            this.downloadButton.Location = new System.Drawing.Point(12, 407);
+            this.downloadButton.Location = new System.Drawing.Point(12, 418);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(132, 37);
             this.downloadButton.TabIndex = 0;
@@ -136,7 +174,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 461);
+            this.Controls.Add(this.forgeButton);
+            this.Controls.Add(this.fabricButton);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.downloadButton);
             this.Controls.Add(this.modsContainer);
@@ -144,6 +184,8 @@
             this.Controls.Add(this.downloadSelected);
             this.Controls.Add(this.SettingsButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(816, 1080);
+            this.MinimumSize = new System.Drawing.Size(816, 200);
             this.Name = "Main";
             this.Text = "Automatic Mod Downloader";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -159,6 +201,8 @@
         private System.Windows.Forms.FlowLayoutPanel modsContainer;
         private CustomButton downloadButton;
         private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.Button fabricButton;
+        private System.Windows.Forms.Button forgeButton;
     }
 }
 
