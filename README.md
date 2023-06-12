@@ -31,17 +31,6 @@ Download available at [releases page](https://github.com/MageSneaky/Automatic-Mo
   <img alt="Main window" src="https://i.imgur.com/LyA1lMC.png" width=773">
 </p>
 
-## Performance
-i5-8400
-Average cpu load 0.2%
-Average ram load 30.1mb
-
-i5-11400
-Average cpu load 0.01%
-Average ram load 30.2mb
-
-Tested On i5-8400 and i5-11400 with 16GB ram
-
 #### Disclaimer
 
 ```
