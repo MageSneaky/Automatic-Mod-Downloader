@@ -202,40 +202,43 @@ namespace Minecraft_Automatic_ModDownloader
                 modsContainer.Controls.Add(newGroupTop);
                 foreach (var mod in json)
                 {
-                    CheckBox newCheckBox = new CheckBox();
-                    newCheckBox.Name = "checkBox " + mod.name;
-                    newCheckBox.Checked = true;
-                    newCheckBox.Width = 15;
-                    Label newText = new Label();
-                    newText.Name = "label " + mod.name;
-                    newText.Margin = new Padding(0, 6, 0, 0);
-                    newText.Text = mod.name;
-                    newText.AutoSize = false;
-                    newText.Width = modsContainer.Width - newText.Width - 200;
-                    newText.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
-                    newText.ForeColor = Color.White;
-                    ProgressBar newProgressBar = new ProgressBar();
-                    newProgressBar.Name = "progressBar " + mod.name;
-                    newProgressBar.Width = 200;
-                    newProgressBar.Height = 20;
-                    newProgressBar.Maximum = 100;
-                    newProgressBar.Step = 1;
-                    newProgressBar.Style = ProgressBarStyle.Continuous;
-                    FlowLayoutPanel newGroup = new FlowLayoutPanel();
-                    newGroup.Name = "group " + mod.name;
-                    newGroup.AutoSize = true;
-                    newGroup.BackColor = Color.Transparent;
-                    newGroup.WrapContents = false;
-                    newGroup.Controls.Add(newCheckBox);
-                    newGroup.Controls.Add(newText);
-                    newGroup.Controls.Add(newProgressBar);
-                    modsContainer.Controls.Add(newGroup);
-                    Mod newMod = new Mod();
-                    newMod.Name = mod.name;
-                    newMod.Download = mod.download;
-                    newMod.CheckBox = newCheckBox;
-                    newMod.Progress = newProgressBar;
-                    modList.Add(newMod);
+                    if (mod.download != "" && mod.name != "")
+                    {
+                        CheckBox newCheckBox = new CheckBox();
+                        newCheckBox.Name = "checkBox " + mod.name;
+                        newCheckBox.Checked = true;
+                        newCheckBox.Width = 15;
+                        Label newText = new Label();
+                        newText.Name = "label " + mod.name;
+                        newText.Margin = new Padding(0, 6, 0, 0);
+                        newText.Text = mod.name;
+                        newText.AutoSize = false;
+                        newText.Width = modsContainer.Width - newText.Width - 200;
+                        newText.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
+                        newText.ForeColor = Color.White;
+                        ProgressBar newProgressBar = new ProgressBar();
+                        newProgressBar.Name = "progressBar " + mod.name;
+                        newProgressBar.Width = 200;
+                        newProgressBar.Height = 20;
+                        newProgressBar.Maximum = 100;
+                        newProgressBar.Step = 1;
+                        newProgressBar.Style = ProgressBarStyle.Continuous;
+                        FlowLayoutPanel newGroup = new FlowLayoutPanel();
+                        newGroup.Name = "group " + mod.name;
+                        newGroup.AutoSize = true;
+                        newGroup.BackColor = Color.Transparent;
+                        newGroup.WrapContents = false;
+                        newGroup.Controls.Add(newCheckBox);
+                        newGroup.Controls.Add(newText);
+                        newGroup.Controls.Add(newProgressBar);
+                        Mod newMod = new Mod();
+                        newMod.Name = mod.name;
+                        newMod.Download = mod.download;
+                        newMod.CheckBox = newCheckBox;
+                        newMod.Progress = newProgressBar;
+                        modsContainer.Controls.Add(newGroup);
+                        modList.Add(newMod);
+                    }
                 }
             }
         }

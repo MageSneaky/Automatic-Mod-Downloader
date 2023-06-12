@@ -27,38 +27,6 @@ namespace Minecraft_Automatic_ModDownloader
         #endregion
 
         #region Methods
-        private void AddTab(UserControl userControl)
-        {
-            userControl.Dock = DockStyle.Fill;
-            panelContainer.Controls.Clear();
-            panelContainer.Controls.Add(userControl);
-            userControl.BringToFront();
-        }
-        #endregion
-
-        #region Control Events
-        private void Settings_Load(object sender, EventArgs e)
-        {
-            Tab_General generalTab = new Tab_General();
-            AddTab(generalTab);
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile("fonts/Inter-Regular.ttf");
-            foreach (Control c in this.Controls)
-            {
-                c.Font = new Font(pfc.Families[0], c.Font.Size, FontStyle.Regular);
-            }
-        }
-
-        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            CloseForm();
-        }
-
-        private void closeSettingsButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void CloseForm()
         {
             functions.CheckConfigFile();
@@ -109,6 +77,38 @@ namespace Minecraft_Automatic_ModDownloader
             var main = Application.OpenForms.OfType<Main>().First();
             main.Settings = null;
             main.GetMods(modsLink);
+        }
+
+        private void AddTab(UserControl userControl)
+        {
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(userControl);
+            userControl.BringToFront();
+        }
+        #endregion
+
+        #region Control Events
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            Tab_General generalTab = new Tab_General();
+            AddTab(generalTab);
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile("fonts/Inter-Regular.ttf");
+            foreach (Control c in this.Controls)
+            {
+                c.Font = new Font(pfc.Families[0], c.Font.Size, FontStyle.Regular);
+            }
+        }
+
+        private void Settings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            CloseForm();
+        }
+
+        private void closeSettingsButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
