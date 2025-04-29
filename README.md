@@ -2,12 +2,12 @@
 # Minecraft Automatic Mod Downloader 
 <p align="center">
   <a href="https://sneaky.pink">
-    <img src="https://sneaky.pink/images/automaticmoddownloaderbanner.jpg"></a>
+    <img src="https://images.sneaky.pink/automaticmoddownloaderbanner.jpg"></a>
 </p>
 <p align="center">
-<a href="https://github.com/MageSneaky/Automatic-Mod-Downloader/releases"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/MageSneaky/Automatic-Mod-Downloader/total?color=pink&label=Downloads&logo=github&style=flat-square"></a>
-<a href="https://github.com/MageSneaky/Automatic-Mod-Downloader"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/MageSneaky/Automatic-Mod-Downloader?color=pink&label=Repo%20Size&logo=github&style=flat-square"></a>
-<a href="https://sneaky.pink"><img alt="Website" src="https://img.shields.io/website?down_color=pink&down_message=sneaky.pink&label=Website&up_color=pink&up_message=sneaky.pink&url=https%3A%2F%2Fsneaky.pink"></a>
+<a href="https://github.com/MageSneaky/Automatic-Mod-Downloader/releases"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/MageSneaky/Automatic-Mod-Downloader/total?color=pink&label=Downloads&logo=github&style=for-the-badge"></a>
+<a href="https://github.com/MageSneaky/Automatic-Mod-Downloader"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/MageSneaky/Automatic-Mod-Downloader?color=pink&label=Repo%20Size&logo=github&style=for-the-badge"></a>
+<a href="https://sneaky.pink"><img alt="Website" src="https://img.shields.io/website?down_color=pink&down_message=sneaky.pink&label=Website&up_color=pink&style=for-the-badge&up_message=sneaky.pink&url=https%3A%2F%2Fsneaky.pink"></a>
 </p>
 Minecraft Automatic Mod Downloader (Automatic Mod Downloader) was originally written and created for me and my friends to use and a hobby project made by <a href="https://sneaky.pink">me</a>
 
